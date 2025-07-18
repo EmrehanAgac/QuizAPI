@@ -38,3 +38,66 @@ Response:
 {
   "sessionId": "uuid"
 }
+
+# Quiz API
+
+## Proje Açıklaması
+
+Bu proje, .NET Core Web API kullanılarak geliştirilmiş basit bir Quiz API'dir. Kullanıcılar sabit tanımlı sorulara erişebilir, rastgele soru alabilir ve cevaplarını API üzerinden gönderebilir. Cevaplar doğru/yanlış olarak değerlendirilir ve skor takibi yapılır. Projede veritabanı kullanılmaz; tüm veriler RAM üzerinde tutulur.
+
+## Çalıştırma Talimatları
+
+1. Projeyi klonlayın:
+   `git clone <repo-link>`
+2. Visual Studio veya VS Code ile projeyi açın.
+3. Gerekli NuGet paketlerini yükleyin.
+4. Projeyi çalıştırın. API varsayılan olarak `http://localhost:5182` adresinde aktif olacaktır.
+5. Swagger arayüzü için `http://localhost:5182/swagger` adresini ziyaret edebilirsiniz.
+
+## API Endpoint Açıklamaları
+
+| HTTP Metodu | Endpoint              | Açıklama                                   |
+| ----------- | --------------------- | ------------------------------------------ |
+| GET         | /api/questions        | Tüm soruları listele                       |
+| GET         | /api/questions/random | Rastgele bir soru getir                    |
+| POST        | /api/questions/answer | Kullanıcının cevabını gönder ve kontrol et |
+
+## Örnek İstek ve Yanıtlar
+
+**GET /api/questions**
+Yanıt (JSON):
+
+```json
+[
+  {
+    "id": 1,
+    "questionText": "C# dilinde bir sınıf nasıl tanımlanır?",
+    "options": [
+      "function MyClass {}",
+      "class MyClass {}",
+      "def MyClass:",
+      "MyClass() = class"
+    ]
+  }
+]
+```
+
+**POST /api/questions/answer**
+İstek:
+
+```json
+{
+  "questionId": 1,
+  "selectedOption": "class MyClass {}"
+}
+```
+
+Yanıt:
+
+```json
+{
+  "correct": true,
+  "currentScore": 10,
+  "correctAnswer": "class MyClass {}"
+}
+
